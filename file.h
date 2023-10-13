@@ -1,6 +1,11 @@
 // definição dos métodos e estruturas relacionados aos arquivos
 // de dados e de índices e suas operações
 
+extern const char* DATA_FILE;
+extern const char* INDEX_FILE;
+extern const char* MODALITY_INDEX_FILE;
+extern const char* GENDER_MODALITY_FILE;
+
 /*
 * ********************************************************
 * estrutura que representa os dados dos clientes dentro do
@@ -8,15 +13,29 @@
 * ********************************************************
 */
 
-// estrutura que representa
+// estrutura de gerenciamento do arquivo "data.dat"
 typedef struct {
+    // armazena o tamanho do último registro adicionado no arquivo
+    int _last_rnn;
+    // armazena o número de registro dentro do arquivo
+    int _num_records;
+} _record_tb_info;
+
+// estrutura que representa um cliente dentro do arquivo "data.dat"
+typedef struct {
+    // Byte Offset de deslocamento do registro dentro do 
+    // arquivo
     int _rnn;
+    // informações de dentro do registro
     char *login, *modality, *gender;
 } client_data;
+
+int _calculate_lenght(char *str);
 
 // funções com operações dentro do arquivo de dados.dat
 int write_data(char *login, char *modality, char *gender);
 int read_data(int rnn, client_data *c);
+int get_rnn(char *login);
 
 /*
 * ********************************************************
@@ -51,7 +70,7 @@ typedef struct {
     int root_rnn;
     // páginas contidas na árvore B
     page *pages;
-};
+} bt_root;
 
 // SEÇÃO INSEGURA
 // deve ser visto é determinado a assinatura das funções relacionados
@@ -75,7 +94,7 @@ typedef struct _pk {
     // a chave em si com RNN e o valor do registro em questão
     key key;
     // ponteiro para o próximo registro
-    _pk *next;
+    struct _pk *next;
 } primary_keys;
 
 // estrutura que representa a lista inversa com índice secundário que

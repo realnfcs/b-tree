@@ -30,8 +30,6 @@ typedef struct {
     char *login, *modality, *gender;
 } client_data;
 
-int _calculate_lenght(char *str);
-
 // funções com operações dentro do arquivo de dados.dat
 int write_data(char *login, char *modality, char *gender);
 int read_data(int rnn, client_data *c);
@@ -78,8 +76,6 @@ typedef struct {
 // funções com operações dentro do arquivo de index1.dat
 int write_index();
 int read_index(int rnn);
-int binary_encode();
-int binary_decode();
 
 /*
 * **********************************************************
@@ -113,8 +109,6 @@ typedef struct {
 // funções com operações dentro do arquivo de index1.dat
 int write_mod_idx();
 int read_mod_idx();
-int binary_encode_mod_idx();
-int binary_decode_mod_idx();
 
 // estrutura que representa a lista inversa com índice secundário que
 // aponta para uma lista de índices primários no arquivo de index2.dat
@@ -132,5 +126,3 @@ typedef struct {
 // funções com operações dentro do arquivo de index2.dat
 int write_gen_idx();
 int read_gen_idx();
-int binary_encode_gen_idx();
-int binary_decode_gen_idx();
